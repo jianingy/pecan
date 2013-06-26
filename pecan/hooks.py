@@ -158,7 +158,7 @@ class TransactionHook(PecanHook):
                 and not getattr(state.request, 'transactional', False):
             self.clear()
             state.request.transactional = True
-            self.start()
+            state.request.dbapi = self.start()
 
     def on_error(self, state, e):
         #
