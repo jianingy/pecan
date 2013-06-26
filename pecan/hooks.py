@@ -147,10 +147,11 @@ class TransactionHook(PecanHook):
         state.request.error = False
         if self.is_transactional(state):
             state.request.transactional = True
-            self.start()
+            dbapi = self.start()
         else:
             state.request.transactional = False
-            self.start_ro()
+            dbapi = self.start_ro()
+        state.request.dbapi = dbapi
 
     def before(self, state):
         if self.is_transactional(state) \
